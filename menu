@@ -1,4 +1,4 @@
-mkdir -p ../usr/bin/dns
+mkdir -p ../usr/bin/dns/dns
 mkdir -p ../usr/bin/dns/ns
 dn"../usr/bin/dns/dns"
 n../usr/bin/dns/ns"
@@ -26,7 +26,7 @@ fi
 if [ ! -e "$logs"  then
 echo "1" > "$logs"
 fi
-reset "../usr/bin/dns" "../usr/bin/dns/ns"
+reset "../usr/bin/dns/dns" "../usr/bin/dns/ns"
 dn"../usr/bin/dns/dns"
 n../usr/bin/dns/ns"
 wc -l < "$dns")
