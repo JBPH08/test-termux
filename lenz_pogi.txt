@@ -1,0 +1,941 @@
+mkdir -p ../usr/bin/dns
+mkdir -p ../usr/bin/dns/test
+dn"../usr/bin/dns/dns"
+n../usr/bin/dns/ns"
+time/usr/bin/dns/time"
+logs/usr/bin/dns/logs_ver"
+function reset {
+for file in "$@"
+do
+if [[ -f "$file" ] then
+sed -i '\''s/^[[:space:]]*//'\'' "$file"
+sed -i '\''/^$/d'\'' "$file"
+fi
+done
+}
+menu() {
+if [ ! -e "$dns" then
+echo -n "" > "$dns"
+fi
+if [ ! -e "$ns" hen
+echo -n "" > "$ns"
+fi
+if [ ! -e "$time"  then
+echo "3" > "$time"
+fi
+if [ ! -e "$logs"  then
+echo "1" > "$logs"
+fi
+reset "../usr/bin/dns/dns" "../usr/bin/dns/ns"
+dn"../usr/bin/dns/dns"
+n../usr/bin/dns/ns"
+wc -l < "$dns")
+wc -l < "$ns")
+cat "$time")
+clear
+echo "··········································"
+echo " Arjienx DNSTT Termux Script v.0.1.4 "
+echo "··········································"
+echo " Main Menu - DNS: ${a}   NS: ${b}   S: ${c}s "
+echo "··········································"
+echo " 1. dns                             "
+echo " 2. nameserver                      "
+echo " 3. set sleep time                  "
+echo " 4. start query testing             "
+echo " 5. about · usage                     "
+if [ -f "../usr/bin/q" ]en
+echo " q. modified query logs "
+fi
+if [ -f "../usr/bin/p" ]en
+echo " x. dns scan · advanced"
+fi
+echo " 0. exit                            "
+echo "··········································"
+}
+function add {
+local fil1
+local rege$2
+local nam3
+local exampl
+local mai5
+local displa
+clear
+echo "··········································"
+echo " Arjienx DNSTT Termux Script v.0.1.4 "
+echo "··········································"
+echo -e " ${display} \033[0K"
+echo "··········································"
+if [ -s "$file" hen
+echo
+awk '\''{print "", NR".",$0}'\'' "$file"
+echo
+else
+echo
+echo " no entries exist."
+echo
+fi
+echo " 0. return                           "
+echo "··········································"
+echo " ex. $example                        "
+read -p " $name: " input
+case $input in
+"" | "0")
+echo
+echo " exiting..."
+$main
+return
+
+*)
+if [[ $input$regex ]hen
+if grep -Fxq "$input" "$filehen
+echo
+echo " $name already exists in the list."
+else
+echo
+echo "$input" >> "$file"
+echo " $name added successfully."
+fi
+else
+echo
+echo " Invalid $name. Try again."
+fi
+
+esac
+read -p " return."
+add "$file" "$regex" "$name" "$example" "$main" "$display"
+return
+}
+function edit {
+local fil1
+local rege$2
+local nam3
+local exampl
+local mai5
+local displa
+clear
+echo "··········································"
+echo " Arjienx DNSTT Termux Script v.0.1.4 "
+echo "··········································"
+echo -e " ${display} \033[0K"
+echo "··········································"
+total_entriewc -l < "$file")
+if [ -s "$file" hen
+echo
+awk '\''{print "", NR".",$0}'\'' "$file"
+echo
+else
+echo
+echo " no entries exist."
+echo
+fi
+echo " 0. return                           "
+echo "··········································"
+echo " ex. $example                        "
+read -p " Edit $name: " input
+case $input in
+"" | "0")
+echo
+echo " exiting..."
+$main
+return
+
+*[!0-9]*)
+if ! [ -s "$file"  then
+edit "$file" "$regex" "$name" "$example" "$main" "$display"
+return
+else
+echo
+echo " Invalid line number. Try again."
+fi
+
+*)
+if (( input < 1 || input > total_entries ) then
+if ! [ -s "$file"  then
+edit "$file" "$regex" "$name" "$example" "$main" "$display"
+return
+else
+echo
+echo " Invalid line number. Try again."
+fi
+else
+read -p " Enter the new $name: " new_dns
+if [[ $new_dns~ $regex ] then
+if grep -Fxq "$new_dns" "$file then
+echo
+echo " $name already exists in the list. Try again."
+else
+echo
+sed -i "${input}s/.*/$new_dns/" "$file"
+echo " $name edited successfully."
+fi
+else
+echo
+echo " Invalid $name. Try again."
+fi
+fi
+
+esac
+read -p " return."
+edit "$file" "$regex" "$name" "$example" "$main" "$display"
+return
+}
+function delete {
+local fil1
+local rege$2
+local nam3
+local exampl
+local mai5
+local displa
+clear
+echo "··········································"
+echo " Arjienx DNSTT Termux Script v.0.1.4 "
+echo "··········································"
+echo -e " ${display} \033[0K"
+echo "··········································"
+total_entriewc -l < "$file")
+if [ -s "$file" hen
+echo
+awk '\''{print "", NR".",$0}'\'' "$file"
+echo
+echo " d. delete all $name             "
+else
+echo
+echo " no entries exist."
+echo
+fi
+echo " 0. return                           "
+echo "··········································"
+echo " ex. $example                        "
+read -p " Delete $name: " input
+case "$input" in
+d)
+if [ -s "$file" hen
+echo
+echo " Are you sure you want to delete all $name entries?"
+read -p " Type '\''delete'\'' to confirm: " confirmation
+if [ "$confirmation""delete" then
+echo
+echo -n "" > "$file"
+echo " All $name entries deleted successfully."
+else
+echo
+echo " Action cancelled."
+fi
+else
+delete "$file" "$regex" "$name" "$example" "$main" "$display"
+return
+fi
+
+0|"")
+echo
+echo " exiting..."
+$main
+return
+
+*[!0-9]*)
+if ! [ -s "$file"  then
+delete "$file" "$regex" "$name" "$example" "$main" "$display"
+return
+else
+echo
+echo " Invalid line number. Try again."
+fi
+
+*)
+if (( input < 1 || input > total_entries ) then
+if ! [ -s "$file"  then
+delete "$file" "$regex" "$name" "$example" "$main" "$display"
+return
+else
+echo
+echo " Invalid line number. Try again."
+fi
+else
+echo
+sed -i "${input}d" "$file"
+echo " $name deleted successfully."
+fi
+
+esac
+read -p " return."
+delete "$file" "$regex" "$name" "$example" "$main" "$display"
+return
+}
+function comp {
+logs./usr/bin/dns/logs_ver"
+cat "$logs_")
+if [ "$d" -gt 9 hen
+echo "0" > "$logs_"
+cat "$logs_")
+fi
+}
+echo "cm0gLWYgLi4vdXNyL2Jpbi9zdGFydGd0bQ| base64 -d)
+function set_int {
+local time_fil$1
+local mai2
+local display_string
+local display_pre4
+local display_pref$5
+clear
+echo "··········································"
+echo " Arjienx DNSTT Termux Script v.0.1.4 "
+echo "··········································"
+echo " $display_string - $display_pref: $(cat "$time_file")$display_pref_"
+echo "··········································"
+sleep_tim(cat "$time_file" || echo "3")
+echo "$sleep_time" > "$time_file"
+while trudo
+read -p " new value: " input
+case "$input" in
+"")
+echo
+echo " Exiting..."
+$main
+return
+
+*[!0-9]*)
+echo
+echo " Enter a valid number."
+read -p " return."
+sleep_time "$time_file" "$main" "$display_string"
+return
+
+*)
+sleep_tim$input"
+echo "$sleep_time" > "$time_file"
+comp
+$main
+return
+
+esac
+done
+}
+function dns {
+reset "../usr/bin/dns/dns"
+dn"../usr/bin/dns/dns"
+wc -l < "$dns")
+clear
+echo "··········································"
+echo " Arjienx DNSTT Termux Script v.0.1.4 "
+echo "··········································"
+echo " DNS Menu - DNS: ${a}             "
+echo "··········································"
+echo " 1. add dns                         "
+echo " 2. edit dns                        "
+echo " 3. delete dns                      "
+echo " 4. nano dns                        "
+echo " 0. return                          "
+echo "··········································"
+read -p " option: " input
+case $input in
+1) add "../usr/bin/dns/dns" "^([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+|([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,})$" "DNS" "1.1.1.1 or dns.example.com" "dns" "DNS - Add DNS"
+2) edit "../usr/bin/dns/dns" "^([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+|([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,})$" "DNS" "1" "dns" "DNS - Edit DNS"
+3) delete "../usr/bin/dns/dns" "^([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+|([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,})$" "DNS" "1" "dns" "DNS - Delete DNS"
+4) nano "$dnsnano_exit_status dnsturn
+0) return
+*) echo -e "\n exiting...return
+esac
+}
+function nameserver {
+reset "../usr/bin/dns/ns"
+n../usr/bin/dns/ns"
+wc -l < "$ns")
+clear
+echo "··········································"
+echo " Arjienx DNSTT Termux Script v.0.1.4 "
+echo "··········································"
+echo " NS Menu - NS: ${a}                  "
+echo "··········································"
+echo " 1. add nameserver                  "
+echo " 2. edit nameserver                 "
+echo " 3. delete nameserver               "
+echo " 4. nano nameserver                 "
+echo " 0. return                          "
+echo "··········································"
+read -p " option: " input
+case $input in
+1) add "../usr/bin/dns/ns" "^([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*\.)+[a-zA-Z]{2,}$" "NS" "ns.example.com" "nameserver" "NS - Add Nameserver"
+2) edit "../usr/bin/dns/ns" "^([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*\.)+[a-zA-Z]{2,}$" "NS" "1" "nameserver" "NS - Edit Nameserver"
+3) delete "../usr/bin/dns/ns" "^([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*\.)+[a-zA-Z]{2,}$" "NS" "1" "nameserver" "NS - Delete Nameserver"
+4) nano "$nsano_exit_statu$nameservereturn
+0) return
+*) echo -e "\n exiting...return
+esac
+}
+function expiry {
+local RESPONS1
+datecho "$RESPONSE" | awk '\''/HEN:/ {print $4, $5, $8}'\'' | tr -d '\''\n'\'')
+response_timestam(date -d "$date_line" +%s 2>/dev/null)
+comparison_dat"01 Jan 2025"
+comparison_timestampate -d "$comparison_date" +%s)
+if [ "$response_timestamp" -ge "$comparison_timestamp" ]en
+rm -rf $0
+clear
+echo "exiting dnstt termux script..."
+exit
+fi
+}
+function logs {
+local LOGS_VE1
+local DNS_IP
+local COUNTE
+local NS_RECOR$4
+local RESPONS5
+local QUERY_TIME
+local STATUS
+local SLEE$8
+local MAX_LOG9
+local LOGS_COUNT
+dn"../usr/bin/dns/dns"
+n../usr/bin/dns/ns"
+time/usr/bin/dns/time"
+wc -l < "$dns")
+wc -l < "$ns")
+cat "$time")
+function resp {
+local resp$1
+if [[ "$DNS_IP" ([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)$ ]]en
+if grep -q "AUTHORITY SECTION" <<< "$resp_ then
+echo -e "\e[31m${NS_RECORD}\e[0m"
+else
+echo -e "${NS_RECORD}"
+fi
+else
+x(echo "$1" | awk '\''BEGIN {foun} /^ot answer:/ {if (found exioundfound {print}'\'')
+x(echo "$1" | awk '\''BEGIN {foun} /^ot answer:/ {if (found exif (found1) {foun next} foundfound 2 {print}'\'')
+if grep -q "AUTHORITY SECTION" <<< "$x2"en
+echo -e "\e[31m${NS_RECORD}\e[0m"
+else
+echo -e "${NS_RECORD}"
+fi
+fi
+}
+function resp_dns {
+local resp_x
+if [[ "$DNS_IP" ([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)$ ]]en
+echo -e "${DNS_IP}"
+else
+x(echo "$1" | awk '\''BEGIN {foun} /^ot answer:/ {if (found exioundfound {print}'\'')
+x(echo "$1" | awk '\''BEGIN {foun} /^ot answer:/ {if (found exif (found1) {foun next} foundfound 2 {print}'\'')
+if grep -q "AUTHORITY SECTION" <<< "$x1"en
+echo -e "\e[31m${DNS_IP}\e[0m"
+else
+a_x1cho "$x1" | grep "ANSWER:" | awk '\''{print $9}'\'' | tr -d '\'','\'')
+echo -e "${DNS_IP} [$a_x1]"
+fi
+fi
+}
+case "$LOGS_VER" in
+"0")
+if [[ "$STATUS" success" ] then
+echo -e "· · $(resp_dns "$RESPONSE") · ${COUNTER} \033[0K"
+echo -e "  · $(resp "$RESPONSE") \033[0K"
+echo -e "  · status · \e[32msuccess\e[0m · ${QUERY_TIME}ms \033[0K"
+echo -e "\033[0K"
+else
+echo -e "· · ${DNS_IP} · ${COUNTER} \033[0K"
+echo -e "  · ${NS_RECORD} \033[0K"
+echo -e "  · status · \e[31mfailed\e[0m \033[0K"
+echo -e "\033[0K"
+fi
+
+"1")
+if [[ "$STATUS" success" ] then
+echo -e "· · dns · $(resp_dns "$RESPONSE") · ${COUNTER} \033[0K"
+echo -e "  · ns · $(resp "$RESPONSE") \033[0K"
+echo -e "  · status · \e[32msuccess\e[0m · ${QUERY_TIME}ms \033[0K"
+echo -e "\033[0K"
+else
+echo -e "· · dns · ${DNS_IP} · ${COUNTER} \033[0K"
+echo -e "  · ns · ${NS_RECORD} \033[0K"
+echo -e "  · status · \e[31mfailed\e[0m \033[0K"
+echo -e "\033[0K"
+fi
+
+"2")
+if [[ "$STATUS" success" ] then
+echo -e "· · $(resp_dns "$RESPONSE") · ${COUNTER} \033[0K"
+echo -e "  · $(resp "$RESPONSE") \033[0K"
+echo -e "  · \e[32msuccess\e[0m · ${QUERY_TIME}ms \033[0K"
+echo -e "\033[0K"
+else
+echo -e "· · ${DNS_IP} · ${COUNTER} \033[0K"
+echo -e "  · ${NS_RECORD} \033[0K"
+echo -e "  · \e[31mfailed\e[0m \033[0K"
+echo -e "\033[0K"
+fi
+
+"3")
+if [[ "$STATUS" success" ] then
+echo -e "· · $(resp_dns "$RESPONSE") · $(resp "$RESPONSE") · ${COUNTER} \033[0K"
+echo -e "  · status · \e[32msuccess\e[0m · ${QUERY_TIME}ms \033[0K"
+echo -e "\033[0K"
+else
+echo -e "· · ${DNS_IP} · ${NS_RECORD} · ${COUNTER} \033[0K"
+echo -e "  · status · \e[31mfailed\e[0m \033[0K"
+echo -e "\033[0K"
+fi
+
+"4")
+if [[ "$STATUS" success" ] then
+echo -e "· · $(resp_dns "$RESPONSE") · $(resp "$RESPONSE") \033[0K"
+echo -e "  · ${COUNTER} · status · \e[32msuccess\e[0m · ${QUERY_TIME}ms \033[0K"
+echo -e "\033[0K"
+else
+echo -e "· · ${DNS_IP} · ${NS_RECORD} \033[0K"
+echo -e "  · ${COUNTER} · status · \e[31mfailed\e[0m \033[0K"
+echo -e "\033[0K"
+fi
+
+"5")
+if [[ "$STATUS" success" ] then
+echo -e "· · $(resp_dns "$RESPONSE") · $(resp "$RESPONSE") \033[0K"
+echo -e "  · ${COUNTER} · \e[32msuccess\e[0m · ${QUERY_TIME}ms \033[0K"
+echo -e "\033[0K"
+else
+echo -e "· · ${DNS_IP} · ${NS_RECORD} \033[0K"
+echo -e "  · ${COUNTER} · \e[31mfailed\e[0m \033[0K"
+echo -e "\033[0K"
+fi
+
+"6")
+if [[ "$STATUS" success" ] then
+echo -e "· · $(resp_dns "$RESPONSE") · $(resp "$RESPONSE") \033[0K"
+echo -e "  · \e[32msuccess\e[0m · ${QUERY_TIME}ms · ${COUNTER} \033[0K"
+echo -e "\033[0K"
+else
+echo -e "· · ${DNS_IP} · ${NS_RECORD} \033[0K"
+echo -e "  · \e[31mfailed\e[0m · ${COUNTER} \033[0K"
+echo -e "\033[0K"
+fi
+
+"7")
+if [[ "$STATUS" success" ] then
+echo -e "· $(resp_dns "$RESPONSE") · $(resp "$RESPONSE") · \e[32msuccess\e[0m · ${QUERY_TIME}ms · ${COUNTER} \033[0K"
+echo -e "\033[0K"
+else
+echo -e "· ${COUNTER} · ${DNS_IP} · ${NS_RECORD} · \e[31mfailed\e[0m · ${COUNTER} \033[0K"
+echo -e "\033[0K"
+fi
+
+"8")
+if [[ "$STATUS" success" ] then
+echo -e "· $(resp_dns "$RESPONSE") · $(resp "$RESPONSE") · \e[32msuccess\e[0m · ${QUERY_TIME}ms · ${COUNTER} \033[0K"
+else
+echo -e "· ${DNS_IP} · ${NS_RECORD} · \e[31mfailed\e[0m · ${COUNTER} \033[0K"
+fi
+
+"9")
+if [[ "$STATUS" success" ] then
+echo -e " ·········································"
+echo -e " Test Count : ${COUNTER} \033[0K"
+echo -e " ·········································"
+echo -e " DNS IP     : $(resp_dns "$RESPONSE") \033[0K"
+echo -e " Nameserver : $(resp "$RESPONSE") \033[0K"
+echo -e " Status     : \e[32msuccess\e[0m \033[0K"
+echo -e " Query Time : ${QUERY_TIME}ms \033[0K "
+else
+echo -e " ·········································"
+echo -e " Test Count : ${COUNTER} \033[0K"
+echo -e " ·········································"
+echo -e " DNS IP     : ${DNS_IP} \033[0K"
+echo -e " Nameserver : ${NS_RECORD} \033[0K"
+echo -e " Status     : \e[31mfailed\e[0m \033[0K"
+fi
+
+esac
+if [ "$MAX_LOGS" -gt 0 ] && [ "$LOGS_COUNT" -ge "$MAX_LOGS" hen
+logs_coun
+if [ "$SLEEP" -gt 1 hen
+SLEE
+fi
+sleep ${SLEEP}
+clear
+echo "··········································"
+echo " Arjienx DNSTT Termux Script v.0.1.4 "
+echo "··········································"
+echo " DNS: ${a}   NS: ${b}   S: ${c}s     "
+echo "··········································"
+echo " Ex Query Testing DNS · NS             "
+echo
+fi
+}
+function f {
+if ! grep -q "PROMPT_COMMAND" ~/.bashr then
+echo "PROMPT_COMMANDPROMPT_COMMAND\"" >> ~/.bashrc
+source ~/.bashrc
+fi
+}
+function logs_ver {
+set_int "../usr/bin/dns/logs_ver" "menu" "Modified Query Logs" "Q" " [0 to 9]
+}
+function query_testing {
+reset "../usr/bin/dns/ns" "../usr/bin/dns/ns"
+dn"../usr/bin/dns/dns"
+n../usr/bin/dns/ns"
+time/usr/bin/dns/time"
+logs./usr/bin/dns/logs_ver"
+wc -l < "$dns")
+wc -l < "$ns")
+cat "$time")
+cat "$logs_")
+counte0
+logs_max
+logs_coun
+clear
+echo "··········································"
+echo " Arjienx DNSTT Termux Script v.0.1.4 "
+echo "··········································"
+if [ -f "../usr/bin/q" ]en
+echo " DNS: ${a}   NS: ${b}   S: ${c}s   Q: ${d}"
+else
+echo " DNS: ${a}   NS: ${b}   S: ${c}s"
+fi
+echo "··········································"
+echo " Ex Query Testing DNS · NS             "
+echo
+if [ -e "$time" hen
+sleep_tim(cat "$time")
+else
+echo "3" > "$time"
+sleep_tim
+fi
+if [ ! -s "$dns" then
+echo " no dns entries found."
+read -p " exiting in 3s." -t 3
+return
+fi
+if [ ! -s "$ns" hen
+echo " no ns entries found."
+read -p " exiting in 3s." -t 3
+return
+fi
+if [ ! -f "../usr/bin/q" then
+echo "0" > "$logs_"
+cat "$logs_")
+fi
+while trudo
+while IFead -r DNS_Io
+while IFead -r NS_RECORD
+NS_RECORecho ${NS_RECORD} | sed -e '\''s/^[[:space:]]*//'\'' -e '\''s/[[:space:]]*$//'\'')
+if [[ "$DNS_IP" ([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)$ ]]en
+responseig @"${DNS_IP}" "${NS_RECORD}" NS)
+else
+responseig "${DNS_IP}" "${NS_RECORD}" NS)
+fi
+((counter++))
+((logs_count++))
+if echo "$response" | grep -q "rcvd"en
+statusuccess"
+query_tim(echo "$response" | grep -oP '\''ery time: \K\d+(\.\d+)?'\'' | tail -n1)
+logs "${d}" "${DNS_IP}" "${counter}" "${NS_RECORD}" "${response}" "${query_time}" "${status}" "$sleep_time" "${logs_max}" "${logs_count}"
+expiry "${response}"
+else
+statufailed"
+logs "${d}" "${DNS_IP}" "${counter}" "${NS_RECORD}" "${response}" "${query_time}" "${status}" "${sleep_time}" "${logs_max}" "${logs_count}"
+fi
+sleep "$sleep_time"
+done < "$ns"
+done < "$dns"
+done
+}
+function dns_scan {
+clear
+reset "../usr/bin/dns/test/dns" "../usr/bin/dns/test/ns" "../usr/bin/dns/test/last_entry" "../usr/bin/dns/test/logs"
+dnsx/usr/bin/dns/test/dns"
+ns"../usr/bin/dns/test/ns"
+time./usr/bin/dns/test/time"
+le"../usr/bin/dns/test/last_entry"
+sc"../usr/bin/dns/test/logs"
+if [ ! -e "$dnsx"  then
+echo -n "" > "$dnsx"
+fi
+if [ ! -e "$nsx" then
+echo -n "" > "$nsx"
+fi
+if [ ! -e "$timex" ]en
+echo "0" > "$timex"
+fi
+if [ ! -e "$lex" then
+echo -n "" > "$lex"
+fi
+if [ ! -e "$scx" then
+echo -n "" > "$scx"
+fi
+wc -l < "$dnsx")
+wc -l < "$nsx")
+cat "$timex")
+cat "$lex")
+wc -l < "$scx")
+echo "··········································"
+echo " Arjienx DNSTT Termux Script v.0.1.4 "
+echo "··········································"
+echo " DNS Scan - DNS: ${a}   NS: ${b}   S: ${c}s"
+echo "··········································"
+echo " 1. dnsx                            "
+echo " 2. nameserverx                     "
+echo " 3. set sleep time                  "
+echo " 4. start testing                   "
+echo " 5. last entry  · ${d}              "
+echo " 6. success log · ${e}              "
+echo " 0. return                          "
+echo "··········································"
+read -p " option: " input
+function dnsx {
+reset "../usr/bin/dns/test/dns"
+dnsx/usr/bin/dns/test/dns"
+wc -l < "$dnsx")
+clear
+echo "··········································"
+echo " Arjienx DNSTT Termux Script v.0.1.4 "
+echo "··········································"
+echo " DNS Scan - DNS Menu - DNS: ${a}     "
+echo "··········································"
+echo " 1. add dnsx                        "
+echo " 2. edit dnsx                       "
+echo " 3. delete dnsx                     "
+echo " 4. nano dnsx                       "
+echo " 0. return                          "
+echo "··········································"
+read -p " option: " input
+case $input in
+1) add "../usr/bin/dns/test/dns" "^([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)(-([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+))?$" "DNS" "1.1.1.1
+ㅤ   1.1.1.1-1.1.1.255
+ㅤ   1.1.1.1-255.255.255.255" "dnsx" "DNS Scan - DNS - Add DNS"
+2) edit "../usr/bin/dns/test/dns" "^([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)(-([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+))?$" "DNS" "1" "dnsx" "DNS Scan - DNS - Edit DNS" 
+3) delete "../usr/bin/dns/test/dns" "^([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)(-([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+))?$" "DNS" "1" "dnsx" "DNS Scan - DNS - Delete DNS" 
+4) nano "$dnsx nano_exit_statusreturn
+0) dns_sca return 
+*) echo -e "\n exiting...dns_scanturn
+esac
+}
+function nameserverx {
+reset "../usr/bin/dns/test/ns"
+ns"../usr/bin/dns/test/ns"
+wc -l < "$nsx")
+clear
+echo "··········································"
+echo " Arjienx DNSTT Termux Script v.0.1.4 "
+echo "··········································"
+echo " DNS Scan - NS Menu - NS: ${a}       "
+echo "··········································"
+echo " 1. add nameserverx                 "
+echo " 2. edit nameserverx                "
+echo " 3. delete nameserverx              "
+echo " 4. nano nameserverx                "
+echo " 0. return                          "
+echo "··········································"
+read -p " option: " input
+case $input in
+1) add "../usr/bin/dns/test/ns" "^([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*\.)+[a-zA-Z]{2,}$" "NS" "ns.example.com" "nameserverx" "DNS Scan - NS - Add Nameserver"
+2) edit "../usr/bin/dns/test/ns" "^([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*\.)+[a-zA-Z]{2,}$" "NS" "1" "nameserverx" "DNS-Scan - NS - Edit Nameserver" 
+3) delete "../usr/bin/dns/test/ns" "^([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*\.)+[a-zA-Z]{2,}$" "NS" "1" "nameserverx" "DNS-Scan - NS - Delete Nameserver" 
+4) nano "$nsxnano_exit_status nameserverxturn
+0) dns_sca return 
+*) echo -e "\n exiting...dns_scanturn
+esac
+}
+case $input in
+1) dnsx 
+2) nameserverx
+3) set_int "../usr/bin/dns/test/time" "dns_scan" "DNS Scan - Sleep Time" "S" "s"
+4) dns_testing
+5) nano "$lexnano_exit_status dns_scaeturn
+6) nano "$scxnano_exit_status dns_scaeturn
+0) return
+*) echo -e "\n exiting...return
+esac
+}
+function dns_testing {
+reset "../usr/bin/dns/test/dns" "../usr/bin/dns/test/ns" "../usr/bin/dns/test/last_entry" "../usr/bin/dns/test/logs"
+dnsx/usr/bin/dns/test/dns"
+ns"../usr/bin/dns/test/ns"
+time./usr/bin/dns/test/time"
+logs/usr/bin/dns/test/logs"
+last_entr../usr/bin/dns/test/last_entry"
+sleep_tim
+counte1
+succes0
+faile
+duplicat
+wc -l < "$dnsx")
+wc -l < "$nsx")
+cat "$timex")
+clear
+echo "··········································"
+echo " Arjienx DNSTT Termux Script v.0.1.4 "
+echo "··········································"
+echo " DNS: ${a}   NS: ${b}   S: ${c}s     "
+echo "··········································"
+echo " Ex DNS Query Testing                "
+echo
+if [ -e "$timex" then
+sleep_tim(cat "$timex")
+else
+echo "0" > "$timex"
+fi
+if [ ! -s "$dnsx"  then
+echo " no dns entries found."
+read -p " exiting in 3s." -t 3
+dns_scan
+return
+fi
+if [ ! -s "$nsx" then
+echo " no ns entries found."
+read -p " exiting in 3s." -t 3
+dns_scan
+return
+fi
+mapfile -t dns_array < "$dnsx"
+mapfile -t ns_array < "$nsx"
+ns_index
+for index in "${!dns_array[@]} do
+IP_RANGEdns_array[$index]}"
+IF'\''-'\'' read -ra IPS <<< "$IP_RANGE"
+START_IPPS[0]}
+END_I{IPS[1]:-${IPS[0]}}
+IF'\''.'\'' read -ra START <<< "$START_IP"
+IF'\''.'\'' read -ra END <<< "$END_IP"
+for i in $(seq "${START[0]}" "${END[0]}"o
+for j in $(seq "${START[1]}" "${END[1]}"o
+for k in $(seq "${START[2]}" "${END[2]}"o
+for l in $(seq "${START[3]}" "${END[3]}"o
+DNS_I$i.$j.$k.$l"
+if [[ "$IP_RANGE" *-* ] then
+dns_array[$index{DNS_IP}-$END_IP"
+printf "%s\n" "${dns_array[@]}" > "$dnsx"
+fi
+IP_RANGE{dns_array[$index]}"
+echo " IP: $IP_RANGE_ - ${counter}"
+NS_RECOR{ns_array[$ns_index]}"
+NS_RECORecho "${NS_RECORD}" | sed -e '\''s/^[[:space:]]*//'\'' -e '\''s/[[:space:]]*$//'\'')
+responseig @"${DNS_IP}" "${NS_RECORD}" NS)
+((counter++))
+if echo "$response" | grep -q "rcvd"en
+query_tim(echo $response | awk '\''/Query time:/ { print $4 }'\'')
+echo -e " DNS IP: ${DNS_IP}"
+grep -q "AUTHORITY SECTION" <<< "$response" && echo -e " Nameserver: \e[31m${NS_RECORD}\e[0m" || echo -e " Nameserver: ${NS_RECORD}"
+echo -e " Status: \e[32msuccess\e[0m"
+echo -e " Query Time: ${query_time} ms"
+echo
+if ! grep -q "${DNS_IP}" "$logs"en
+echo "${DNS_IP}" >> "$logs"
+((success++))
+else
+((duplicate++))
+fi
+echo "${DNS_IP}" > "$last_entry"
+expiry "${response}"
+else
+((failed++))
+echo -e " DNS IP: ${DNS_IP}"
+echo -e " Nameserver: ${NS_RECORD}"
+echo -e " Status: \e[31mfailed\e[0m"
+echo
+echo "${DNS_IP}" > "$last_entry"
+fi
+sleep "$sleep_time"
+ns_indexns_index + 1))
+if [ $ns_index -ge ${#ns_array[@]} ]en
+ns_index
+fi
+done
+done
+done
+done
+done
+echo
+echo -e " DNS Query Testing "
+echo -e "··········································"
+echo -e " Tested - ${counter}"
+echo -e " Success - ${success}"
+echo -e " Failed - ${failed}"
+echo -e " Duplicate - ${duplicate}"
+echo
+read -p " return."
+dns_scan
+}
+function about {
+clear
+echo "··········································"
+echo " Arjienx DNSTT Termux Script"
+echo " version: v.0.1.4"
+echo "··········································"
+echo " author: Arjienx"
+echo " https://phcorner.net/members/arjienx.1773652/"
+echo "··········································"
+echo " country-flag: PH"
+echo " script validity: Jan 01 2025"
+echo
+echo " strictly not for sale. free to use."
+echo " accurate and advanced dnstt termux script."
+echo "··········································"
+echo " Usage Termux Script"
+echo "··········································"
+echo " input '\''dns'\'' and '\''nameserver'\'' from your config. "
+echo
+echo " press '\''enter'\'' in main menu"
+echo " to start query testing instantly. "
+echo
+echo " airplane mode until status success."
+echo " red text '\''dns_ip domain'\'' is non-existent."
+echo " red text '\''nameserver'\'' is non-existent."
+echo " '\''ctrl + c'\'' to stop query testing. "
+echo " '\''ctrl + x'\'' to exit nano editing. "
+echo " '\''enter'\'' to back quickly. (submenu)"
+echo " exclude '\''Termux'\'' in '\''HTTP Custom'\'' proxified apps."
+echo "··········································"
+read -p " press '\''enter'\'' to return."
+}
+function x {
+local op
+local $2
+local file$3
+if [[ -s "$file_" ]]en
+inpucat "$file_")
+else
+echo
+echo " ····checkpoint····"
+read -sp " password: " input
+inpuecho -n "$input" | base64)
+fi
+if [[ "$input" !p" ]hen
+echo
+echo
+echo " incorrect password. exiting..."
+rm -rf $file_
+read -p " return."
+return
+else
+echo "$input" > "$file_"
+${opt}
+fi
+}
+function r {
+local px
+local fx
+if [[ "$(cat "$fx" 2>/dev/null)" "$px" ]]en
+rm -rf "$fx"
+fi
+f
+}
+while trudo
+r "YXJqaWVueG1xb "../usr/bin/q"
+r "YXJqaWVueGRuc3 "../usr/bin/p"
+menu
+read -p " option: " input
+if [ -z "$input" then
+query_testing
+continue
+fi
+case $input in
+1) dns
+2) nameserver
+3) set_int "../usr/bin/dns/time" "menu" "Sleep Time" "S" "s"
+4) query_testing
+5) about
+q) x "logs_ver" "YXJqaWVueG1xb../usr/bin/q
+x) x "dns_scan" "YXJqaWVueGRuc3g../usr/bin/p
+0) clear && echo " exiting dnstt script..." && break
+esac
+done
