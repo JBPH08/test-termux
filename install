@@ -10,7 +10,7 @@ apt-get update
 apt-get install -y dnsutils nano
 
 # Download the menu script to the correct path
-wget --no-check-certificate -O /data/data/com.termux/files/usr/bin/menu https://raw.githubusercontent.com/JBPH08/termux-script/main/menu
+wget --no-check-certificate -O /data/data/com.termux/files/usr/bin/menu https://raw.githubusercontent.com/JBPH08/test-termux/main/menu
 
 # Make the menu script executable
 chmod +x /data/data/com.termux/files/usr/bin/menu
