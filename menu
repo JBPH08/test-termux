@@ -1,38 +1,45 @@
-mkdir -p ../usr/bin/dns/dns
-mkdir -p ../usr/bin/dns/ns
-dn"../usr/bin/dns/dns"
-n../usr/bin/dns/ns"
-time/usr/bin/dns/time"
-logs/usr/bin/dns/logs_ver"
+#!/bin/bash
+
+# Create directories
+mkdir -p ../usr/bin/dns
+mkdir -p ../usr/bin/dns/test
+
+# Assign file paths
+dns="../usr/bin/dns/dns"
+ns="../usr/bin/dns/ns"
+time="../usr/bin/dns/time"
+logs="../usr/bin/dns/logs_ver"
+
+# Function to reset files
 function reset {
-for file in "$@"
-do
-if [[ -f "$file" ] then
-sed -i '\''s/^[[:space:]]*//'\'' "$file"
-sed -i '\''/^$/d'\'' "$file"
-fi
-done
+    for file in "$@"; do
+        if [[ -f "$file" ]]; then
+            sed -i 's/^[[:space:]]*//' "$file"
+            sed -i '/^$/d' "$file"
+        fi
+    done
 }
+
+# Function to setup menu
 menu() {
-if [ ! -e "$dns" then
-echo -n "" > "$dns"
-fi
-if [ ! -e "$ns" then
-echo -n "" > "$ns"
-fi
-if [ ! -e "$time"  then
-echo "3" > "$time"
-fi
-if [ ! -e "$logs"  then
-echo "1" > "$logs"
-fi
-reset "../usr/bin/dns/dns" "../usr/bin/dns/ns"
-dn"../usr/bin/dns/dns"
-n../usr/bin/dns/ns"
-wc -l < "$dns")
-wc -l < "$ns")
-cat "$time")
-clear
+    if [ ! -e "$dns" ]; then
+        echo -n "" > "$dns"
+    fi
+    if [ ! -e "$ns" ]; then
+        echo -n "" > "$ns"
+    fi
+    if [ ! -e "$time" ]; then
+        echo "3" > "$time"
+    fi
+    if [ ! -e "$logs" ]; then
+        echo "1" > "$logs"
+    fi
+
+    reset "$dns" "$ns"
+    wc -l < "$dns"
+    wc -l < "$ns"
+    cat "$time"
+    clear
 echo "··········································"
 echo " Dosmildos DNSTT Termux Script v.0.1.4 "
 echo "··········································"
