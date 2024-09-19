@@ -39,10 +39,6 @@ menu() {
     echo "NS line count: $line_count_ns"
     
     clear
-}
-
-# Call the menu function
-menu
 
 echo "··········································"
 echo " Arjienx DNSTT Termux Script v.0.1.4 "
