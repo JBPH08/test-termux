@@ -1,65 +1,49 @@
 mkdir -p ../usr/bin/dns
 mkdir -p ../usr/bin/dns/test
-dn"../usr/bin/dns/dns"
-n../usr/bin/dns/ns"
-time/usr/bin/dns/time"
-logs/usr/bin/dns/logs_ver"
+
+dns="../usr/bin/dns/dns"
+ns="../usr/bin/dns/ns"
+time_file="../usr/bin/dns/time"
+logs="../usr/bin/dns/logs_ver"
+
 function reset {
-for file in "$@"
-do
-if [[ -f "$file" ] then
-sed -i '\''s/^[[:space:]]*//'\'' "$file"
-sed -i '\''/^$/d'\'' "$file"
-fi
-done
+    for file in "$@"; do
+        if [[ -f "$file" ]]; then
+            sed -i 's/^[[:space:]]*//' "$file"
+            sed -i '/^$/d' "$file"
+        fi
+    done
 }
+
 menu() {
-if [ ! -e "$dns" then
-echo -n "" > "$dns"
-fi
-if [ ! -e "$ns" hen
-echo -n "" > "$ns"
-fi
-if [ ! -e "$time"  then
-echo "3" > "$time"
-fi
-if [ ! -e "$logs"  then
-echo "1" > "$logs"
-fi
-reset "../usr/bin/dns/dns" "../usr/bin/dns/ns"
-dn"../usr/bin/dns/dns"
-n../usr/bin/dns/ns"
-wc -l < "$dns")
-wc -l < "$ns")
-cat "$time")
-clear
-echo "··········································"
-echo " Arjienx DNSTT Termux Script v.0.1.4 "
-echo "··········································"
-echo " Main Menu - DNS: ${a}   NS: ${b}   S: ${c}s "
-echo "··········································"
-echo " 1. dns                             "
-echo " 2. nameserver                      "
-echo " 3. set sleep time                  "
-echo " 4. start query testing             "
-echo " 5. about · usage                     "
-if [ -f "../usr/bin/q" ]en
-echo " q. modified query logs "
-fi
-if [ -f "../usr/bin/p" ]en
-echo " x. dns scan · advanced"
-fi
-echo " 0. exit                            "
-echo "··········································"
+    if [ ! -e "$dns" ]; then
+        echo -n "" > "$dns"
+    fi
+    if [ ! -e "$ns" ]; then
+        echo -n "" > "$ns"
+    fi
+    if [ ! -e "$time_file" ]; then
+        echo "3" > "$time_file"
+    fi
+    if [ ! -e "$logs" ]; then
+        echo "1" > "$logs"
+    fi
+    reset "$dns" "$ns"
+    
+    # Note: Using command substitution correctly
+    line_count_dns=$(wc -l < "$dns")
+    line_count_ns=$(wc -l < "$ns")
+    
+    # Display counts
+    echo "DNS line count: $line_count_dns"
+    echo "NS line count: $line_count_ns"
+    
+    clear
 }
-function add {
-local fil1
-local rege$2
-local nam3
-local exampl
-local mai5
-local displa
-clear
+
+# Call the menu function
+menu
+
 echo "··········································"
 echo " Arjienx DNSTT Termux Script v.0.1.4 "
 echo "··········································"
