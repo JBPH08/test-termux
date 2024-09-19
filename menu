@@ -1,47 +1,67 @@
 mkdir -p ../usr/bin/dns
 mkdir -p ../usr/bin/dns/test
-
-dns="../usr/bin/dns/dns"
-ns="../usr/bin/dns/ns"
-time_file="../usr/bin/dns/time"
-logs="../usr/bin/dns/logs_ver"
-
+dn"../usr/bin/dns/dns"
+n../usr/bin/dns/ns"
+time/usr/bin/dns/time"
+logs/usr/bin/dns/logs_ver"
 function reset {
-    for file in "$@"; do
-        if [[ -f "$file" ]]; then
-            sed -i 's/^[[:space:]]*//' "$file"
-            sed -i '/^$/d' "$file"
-        fi
-    done
+for file in "$@"
+do
+if [[ -f "$file" ] then
+sed -i '\''s/^[[:space:]]*//'\'' "$file"
+sed -i '\''/^$/d'\'' "$file"
+fi
+done
 }
-
 menu() {
-    if [ ! -e "$dns" ]; then
-        echo -n "" > "$dns"
-    fi
-    if [ ! -e "$ns" ]; then
-        echo -n "" > "$ns"
-    fi
-    if [ ! -e "$time_file" ]; then
-        echo "3" > "$time_file"
-    fi
-    if [ ! -e "$logs" ]; then
-        echo "1" > "$logs"
-    fi
-    reset "$dns" "$ns"
-    
-    # Note: Using command substitution correctly
-    line_count_dns=$(wc -l < "$dns")
-    line_count_ns=$(wc -l < "$ns")
-    
-    # Display counts
-    echo "DNS line count: $line_count_dns"
-    echo "NS line count: $line_count_ns"
-    
-    clear
-
+if [ ! -e "$dns" then
+echo -n "" > "$dns"
+fi
+if [ ! -e "$ns" then
+echo -n "" > "$ns"
+fi
+if [ ! -e "$time"  then
+echo "3" > "$time"
+fi
+if [ ! -e "$logs"  then
+echo "1" > "$logs"
+fi
+reset "../usr/bin/dns/dns" "../usr/bin/dns/ns"
+dn"../usr/bin/dns/dns"
+n../usr/bin/dns/ns"
+wc -l < "$dns")
+wc -l < "$ns")
+cat "$time")
+clear
 echo "··········································"
-echo " Arjienx DNSTT Termux Script v.0.1.4 "
+echo " Dosmildos DNSTT Termux Script v.0.1.4 "
+echo "··········································"
+echo " Main Menu - DNS: ${a}   NS: ${b}   S: ${c}s "
+echo "··········································"
+echo " 1. dns                             "
+echo " 2. nameserver                      "
+echo " 3. set sleep time                  "
+echo " 4. start query testing             "
+echo " 5. about · usage                     "
+if [ -f "../usr/bin/q" ]en
+echo " q. modified query logs "
+fi
+if [ -f "../usr/bin/p" ]en
+echo " x. dns scan · advanced"
+fi
+echo " 0. exit                            "
+echo "··········································"
+}
+function add {
+local fil1
+local rege$2
+local nam3
+local exampl
+local mai5
+local displa
+clear
+echo "··········································"
+echo " Dosmildos DNSTT Termux Script v.0.1.4 "
 echo "··········································"
 echo -e " ${display} \033[0K"
 echo "··········································"
@@ -94,7 +114,7 @@ local mai5
 local displa
 clear
 echo "··········································"
-echo " Arjienx DNSTT Termux Script v.0.1.4 "
+echo " Dosmildos DNSTT Termux Script v.0.1.4 "
 echo "··········································"
 echo -e " ${display} \033[0K"
 echo "··········································"
@@ -168,7 +188,7 @@ local mai5
 local displa
 clear
 echo "··········································"
-echo " Arjienx DNSTT Termux Script v.0.1.4 "
+echo " Dosmildos DNSTT Termux Script v.0.1.4 "
 echo "··········································"
 echo -e " ${display} \033[0K"
 echo "··········································"
@@ -258,7 +278,7 @@ local display_pre4
 local display_pref$5
 clear
 echo "··········································"
-echo " Arjienx DNSTT Termux Script v.0.1.4 "
+echo " Dosmildos DNSTT Termux Script v.0.1.4 "
 echo "··········································"
 echo " $display_string - $display_pref: $(cat "$time_file")$display_pref_"
 echo "··········································"
@@ -296,7 +316,7 @@ dn"../usr/bin/dns/dns"
 wc -l < "$dns")
 clear
 echo "··········································"
-echo " Arjienx DNSTT Termux Script v.0.1.4 "
+echo " Dosmildos DNSTT Termux Script v.0.1.4 "
 echo "··········································"
 echo " DNS Menu - DNS: ${a}             "
 echo "··········································"
@@ -322,7 +342,7 @@ n../usr/bin/dns/ns"
 wc -l < "$ns")
 clear
 echo "··········································"
-echo " Arjienx DNSTT Termux Script v.0.1.4 "
+echo " Dosmildos DNSTT Termux Script v.0.1.4 "
 echo "··········································"
 echo " NS Menu - NS: ${a}                  "
 echo "··········································"
@@ -532,7 +552,7 @@ fi
 sleep ${SLEEP}
 clear
 echo "··········································"
-echo " Arjienx DNSTT Termux Script v.0.1.4 "
+echo " Dosmildos DNSTT Termux Script v.0.1.4 "
 echo "··········································"
 echo " DNS: ${a}   NS: ${b}   S: ${c}s     "
 echo "··········································"
@@ -564,7 +584,7 @@ logs_max
 logs_coun
 clear
 echo "··········································"
-echo " Arjienx DNSTT Termux Script v.0.1.4 "
+echo " Dosmildos DNSTT Termux Script v.0.1.4 "
 echo "··········································"
 if [ -f "../usr/bin/q" ]en
 echo " DNS: ${a}   NS: ${b}   S: ${c}s   Q: ${d}"
@@ -648,7 +668,7 @@ cat "$timex")
 cat "$lex")
 wc -l < "$scx")
 echo "··········································"
-echo " Arjienx DNSTT Termux Script v.0.1.4 "
+echo " Dosmildos DNSTT Termux Script v.0.1.4 "
 echo "··········································"
 echo " DNS Scan - DNS: ${a}   NS: ${b}   S: ${c}s"
 echo "··········································"
@@ -667,7 +687,7 @@ dnsx/usr/bin/dns/test/dns"
 wc -l < "$dnsx")
 clear
 echo "··········································"
-echo " Arjienx DNSTT Termux Script v.0.1.4 "
+echo " Dosmildos DNSTT Termux Script v.0.1.4 "
 echo "··········································"
 echo " DNS Scan - DNS Menu - DNS: ${a}     "
 echo "··········································"
@@ -695,7 +715,7 @@ ns"../usr/bin/dns/test/ns"
 wc -l < "$nsx")
 clear
 echo "··········································"
-echo " Arjienx DNSTT Termux Script v.0.1.4 "
+echo " Dosmildos DNSTT Termux Script v.0.1.4 "
 echo "··········································"
 echo " DNS Scan - NS Menu - NS: ${a}       "
 echo "··········································"
@@ -743,7 +763,7 @@ wc -l < "$nsx")
 cat "$timex")
 clear
 echo "··········································"
-echo " Arjienx DNSTT Termux Script v.0.1.4 "
+echo " Dosmildos DNSTT Termux Script v.0.1.4 "
 echo "··········································"
 echo " DNS: ${a}   NS: ${b}   S: ${c}s     "
 echo "··········································"
@@ -838,11 +858,11 @@ dns_scan
 function about {
 clear
 echo "··········································"
-echo " Arjienx DNSTT Termux Script"
+echo " Dosmildos DNSTT Termux Script"
 echo " version: v.0.1.4"
 echo "··········································"
-echo " author: Arjienx"
-echo " https://phcorner.net/members/arjienx.1773652/"
+echo " author: Dosmildos"
+echo " https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.facebook.com%2Fdlsjbc02%2F&psig=AOvVaw2R2DluTHo7zvzkWWh9j7K3&ust=1726818711342000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCLiKh5rDzogDFQAAAAAdAAAAABAE"
 echo "··········································"
 echo " country-flag: PH"
 echo " script validity: Jan 01 2025"
