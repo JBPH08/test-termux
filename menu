@@ -1,5 +1,5 @@
 mkdir -p ../usr/bin/dns
-mkdir -p ../usr/bin/dns/test
+mkdir -p ../usr/bin/dns/ns
 dn"../usr/bin/dns/dns"
 n../usr/bin/dns/ns"
 time/usr/bin/dns/time"
