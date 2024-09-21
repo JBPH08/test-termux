@@ -1,25 +1,19 @@
 #!/bin/bash
-# Dosmildos DNSTT Termux Script Installer
+# Arjienx DNSTT Termux Script Installer
 #--------------------------------
 
-# Remove existing installation directory if it exists
 rm -rf install
 
-# Update package lists and install required packages
-pkg update
-pkg install -y dnsutils nano wget
+apt-get update
+apt-get install -y dnsutils nano
 
-# Download the menu script
-wget --no-check-certificate -O $PREFIX/bin/menu https://raw.githubusercontent.com/JBPH08/test-termux/main/menu
-
-# Make the menu script executable
-chmod +x $PREFIX/bin/menu
+wget --no-check-certificate -O ../usr/bin/menu https://raw.githubusercontent.com/Ysilven/termux-script/main/menu && chmod +x ../usr/bin/menu
 
 echo "Installation Completed."
 echo
-echo "Dosmildos DNSTT Script v0.1.4.6"
+echo "Arjienx DNSTT Script v0.1.4.6"
 echo "https://phcorner.net/members/arjienx.1773652/"
 echo
-echo "Dosmildos"
-echo "Press 'enter' to back and start query testing instantly."
-echo "Type 'menu' to run the dnstt termux script."
+echo "Arjienx-PHC"
+echo "press 'enter' to back and start query testing instantly."
+echo "type 'menu' to run the dnstt termux script."
